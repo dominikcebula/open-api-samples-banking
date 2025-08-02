@@ -6,6 +6,11 @@
 
 This repository contains OpenAPI Examples for the Banking Domain.
 
+> **Disclaimer:**
+> These API definitions are simplified examples intended for educational and demonstration purposes only. They may not
+> fully comply with industry standards or regulatory requirements such as PCI DSS, GDPR, or other security and privacy
+> frameworks. Use with caution.
+
 ## Included APIs
 
 The following APIs are included:
