@@ -23,6 +23,10 @@ paths:
       responses:
         '201':
           description: Card requested
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
         '400':
           description: Invalid request body or parameters
           content:
@@ -119,6 +123,30 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    Card:
+      type: object
+      properties:
+        cardId:
+          type: string
+        customerId:
+          type: string
+        cardType:
+          type: string
+        cardNumber:
+          type: string
+          description: Masked card number (e.g., **** **** **** 1234)
+        cvv:
+          type: string
+          description: Card verification value (masked or omitted in production)
+        expiry:
+          type: string
+          description: Expiry date in MM/YY format
+        status:
+          $ref: '#/components/schemas/CardStatus'
+        issuedAt:
+          type: string
+          format: date-time
+          description: Card issue date
     ErrorResponse:
       type: object
       properties:
@@ -131,3 +159,6 @@ components:
         details:
           type: string
           description: Additional error details (optional)
+    CardStatus:
+      type: string
+      enum: [ACTIVE, INACTIVE, BLOCKED, EXPIRED, LOST, STOLEN]
