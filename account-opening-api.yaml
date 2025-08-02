@@ -44,15 +44,9 @@ paths:
         '200':
           description: Account details
 
-  /accounts/{accountId}/transfer:
+  /accounts/transfer:
     post:
-      summary: Transfer money from an account
-      parameters:
-        - name: accountId
-          in: path
-          required: true
-          schema:
-            type: string
+      summary: Transfer money between accounts
       requestBody:
         required: true
         content:
@@ -60,7 +54,9 @@ paths:
             schema:
               type: object
               properties:
-                toAccountId:
+                from:
+                  type: string
+                to:
                   type: string
                 amount:
                   type: number
