@@ -1,0 +1,54 @@
+openapi: 3.0.3
+info:
+  title: Loan Application and Management API
+  version: 1.0.0
+  description: API to apply for and manage loans.
+servers:
+  - url: /api/v1
+paths:
+  /loans:
+    post:
+      summary: Apply for a loan
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customerId:
+                  type: string
+                amount:
+                  type: number
+                termMonths:
+                  type: integer
+                loanType:
+                  type: string
+      responses:
+        '201':
+          description: Loan application submitted
+
+    get:
+      summary: List all loans for a customer
+      parameters:
+        - name: customerId
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of loans
+
+  /loans/{loanId}:
+    get:
+      summary: Get loan details
+      parameters:
+        - name: loanId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Loan details

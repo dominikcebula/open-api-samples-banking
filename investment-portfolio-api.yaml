@@ -1,0 +1,52 @@
+openapi: 3.0.3
+info:
+  title: Investment Portfolio Management API
+  version: 1.0.0
+  description: API to manage investment portfolios.
+servers:
+  - url: /api/v1
+paths:
+  /investments:
+    post:
+      summary: Add investment to portfolio
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customerId:
+                  type: string
+                assetType:
+                  type: string
+                amount:
+                  type: number
+      responses:
+        '201':
+          description: Investment added
+
+    get:
+      summary: Get portfolio for a customer
+      parameters:
+        - name: customerId
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Investment portfolio
+
+  /investments/{investmentId}:
+    delete:
+      summary: Remove investment from portfolio
+      parameters:
+        - name: investmentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Investment removed

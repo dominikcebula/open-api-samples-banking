@@ -1,0 +1,40 @@
+openapi: 3.0.3
+info:
+  title: Foreign Exchange (FX) Services API
+  version: 1.0.0
+  description: API to provide foreign exchange rate and conversion services.
+servers:
+  - url: /api/v1
+paths:
+  /fx/rates:
+    get:
+      summary: Get FX rates
+      parameters:
+        - name: baseCurrency
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: FX rates returned
+
+  /fx/convert:
+    post:
+      summary: Convert currency
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                fromCurrency:
+                  type: string
+                toCurrency:
+                  type: string
+                amount:
+                  type: number
+      responses:
+        '200':
+          description: Conversion result

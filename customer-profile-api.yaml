@@ -1,0 +1,65 @@
+openapi: 3.0.3
+info:
+  title: Customer Profile Management API
+  version: 1.0.0
+  description: API to manage customer profiles.
+servers:
+  - url: /api/v1
+paths:
+  /customers:
+    post:
+      summary: Create a new customer profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                phone:
+                  type: string
+      responses:
+        '201':
+          description: Customer created
+
+  /customers/{customerId}:
+    get:
+      summary: Get customer profile
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Customer profile
+
+    put:
+      summary: Update customer profile
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                phone:
+                  type: string
+      responses:
+        '200':
+          description: Customer updated

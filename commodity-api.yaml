@@ -1,0 +1,54 @@
+openapi: 3.0.3
+info:
+  title: Commodity Buy, Sell and Pricing API
+  version: 1.0.0
+  description: API to buy, sell, and get prices of commodities.
+servers:
+  - url: /api/v1
+paths:
+  /commodities/prices:
+    get:
+      summary: Get current commodity prices
+      responses:
+        '200':
+          description: Commodity prices
+
+  /commodities/buy:
+    post:
+      summary: Buy commodities
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customerId:
+                  type: string
+                commodity:
+                  type: string
+                quantity:
+                  type: number
+      responses:
+        '201':
+          description: Commodity purchased
+
+  /commodities/sell:
+    post:
+      summary: Sell commodities
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customerId:
+                  type: string
+                commodity:
+                  type: string
+                quantity:
+                  type: number
+      responses:
+        '200':
+          description: Commodity sold

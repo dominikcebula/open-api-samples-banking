@@ -1,0 +1,59 @@
+openapi: 3.0.3
+info:
+  title: Card Management API
+  version: 1.0.0
+  description: API for managing debit and credit cards.
+servers:
+  - url: /api/v1
+paths:
+  /cards:
+    post:
+      summary: Request a new card
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customerId:
+                  type: string
+                cardType:
+                  type: string
+      responses:
+        '201':
+          description: Card requested
+
+    get:
+      summary: List all cards for a customer
+      parameters:
+        - name: customerId
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of cards
+
+  /cards/{cardId}/status:
+    patch:
+      summary: Update card status (activate/deactivate)
+      parameters:
+        - name: cardId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+      responses:
+        '200':
+          description: Card status updated

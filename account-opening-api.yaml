@@ -1,0 +1,71 @@
+openapi: 3.0.3
+info:
+  title: Account Opening, Management and Money Transfer API
+  version: 1.0.0
+  description: API for opening and managing accounts and performing money transfers.
+servers:
+  - url: /api/v1
+paths:
+  /accounts:
+    post:
+      summary: Open a new account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customerId:
+                  type: string
+                accountType:
+                  type: string
+                currency:
+                  type: string
+      responses:
+        '201':
+          description: Account created
+    get:
+      summary: List all accounts
+      responses:
+        '200':
+          description: A list of accounts
+
+  /accounts/{accountId}:
+    get:
+      summary: Get account details
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Account details
+
+  /accounts/{accountId}/transfer:
+    post:
+      summary: Transfer money from an account
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                toAccountId:
+                  type: string
+                amount:
+                  type: number
+                currency:
+                  type: string
+      responses:
+        '200':
+          description: Transfer successful
