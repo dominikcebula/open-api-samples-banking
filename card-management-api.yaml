@@ -78,11 +78,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
-  /cards/{cardId}/status:
+  /cards/{cardNumber}/status:
     patch:
       summary: Update card status (activate, deactivate, report lost/stolen, etc.)
       parameters:
-        - name: cardId
+        - name: cardNumber
           in: path
           required: true
           schema:
@@ -123,6 +123,36 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+
+  /cards/{cardNumber}:
+    get:
+      summary: Get card details by card number
+      parameters:
+        - name: cardNumber
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Card details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '404':
+          description: Card not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
 components:
   schemas:
     Card:
