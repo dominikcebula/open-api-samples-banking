@@ -1,3 +1,5 @@
+[![Validate OpenAPI Specs](https://github.com/dominikcebula/open-api-samples-banking/actions/workflows/openapi-validate.yml/badge.svg)](https://github.com/dominikcebula/open-api-samples-banking/actions/workflows/openapi-validate.yml)
+
 # Open API Samples - Banking APIs
 
 ## Intro
