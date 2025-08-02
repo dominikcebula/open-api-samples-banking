@@ -100,7 +100,7 @@ paths:
         '200':
           description: Card status updated
         '400':
-          description: Invalid card ID or status
+          description: Invalid card number or status
           content:
             application/json:
               schema:
@@ -158,17 +158,15 @@ components:
     Card:
       type: object
       properties:
-        cardId:
+        cardNumber:
           type: string
+          description: Card number
         customerId:
           type: string
         cardType:
           $ref: '#/components/schemas/CardType'
         cardProvider:
           $ref: '#/components/schemas/CardProvider'
-        cardNumber:
-          type: string
-          description: Masked card number (e.g., **** **** **** 1234)
         cvv:
           type: string
           description: Card verification value (masked or omitted in production)
