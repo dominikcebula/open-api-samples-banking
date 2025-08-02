@@ -78,7 +78,7 @@ paths:
 
   /cards/{cardId}/status:
     patch:
-      summary: Update card status (activate/deactivate)
+      summary: Update card status (activate, deactivate, report lost/stolen, etc.)
       parameters:
         - name: cardId
           in: path
@@ -93,7 +93,7 @@ paths:
               type: object
               properties:
                 status:
-                  type: string
+                  $ref: '#/components/schemas/CardStatus'
       responses:
         '200':
           description: Card status updated
