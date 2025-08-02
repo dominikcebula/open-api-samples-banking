@@ -75,6 +75,21 @@ paths:
       responses:
         '200':
           description: Transfer successful
+
+  /accounts/{accountId}/close:
+    post:
+      summary: Close an account
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Account closed successfully
+        '404':
+          description: Account not found
 components:
   schemas:
     Account:
