@@ -17,6 +17,15 @@ The following APIs are included:
 - [Commodity Buy, Sell and Pricing API](./commodity-api.yaml) ([GitHub Raw](https://raw.githubusercontent.com/dominikcebula/open-api-samples-banking/main/commodity-api.yaml))
 - [Customer Profile Management API](./customer-profile-api.yaml) ([GitHub Raw](https://raw.githubusercontent.com/dominikcebula/open-api-samples-banking/main/customer-profile-api.yaml))
 
+## View APIs in Swagger Editor
+
+To view any of the OpenAPI YAML files in an interactive way:
+
+1. Go to [Swagger Editor](https://editor.swagger.io/)
+2. Click on "File" > "Import URL"
+3. Paste the GitHub Raw link for the desired API from the list below
+4. Click "OK" to load and explore the API definition
+
 ## Author
 
 Dominik Cebula
