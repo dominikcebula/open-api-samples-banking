@@ -19,7 +19,9 @@ paths:
                 customerId:
                   type: string
                 cardType:
-                  type: string
+                  $ref: '#/components/schemas/CardType'
+                cardProvider:
+                  $ref: '#/components/schemas/CardProvider'
       responses:
         '201':
           description: Card requested
@@ -131,7 +133,9 @@ components:
         customerId:
           type: string
         cardType:
-          type: string
+          $ref: '#/components/schemas/CardType'
+        cardProvider:
+          $ref: '#/components/schemas/CardProvider'
         cardNumber:
           type: string
           description: Masked card number (e.g., **** **** **** 1234)
@@ -161,4 +165,17 @@ components:
           description: Additional error details (optional)
     CardStatus:
       type: string
-      enum: [ACTIVE, INACTIVE, BLOCKED, EXPIRED, LOST, STOLEN]
+      enum: [ ACTIVE, INACTIVE, BLOCKED, EXPIRED, LOST, STOLEN ]
+    CardType:
+      type: string
+      enum:
+        - debit
+        - credit
+    CardProvider:
+      type: string
+      enum:
+        - visa
+        - mastercard
+        - maestro
+        - amex
+        - discover
