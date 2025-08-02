@@ -19,12 +19,9 @@ paths:
                 customerId:
                   type: string
                 accountType:
-                  type: string
-                  enum: [SAVINGS, CHECKING, BUSINESS, JOINT]
+                  $ref: '#/components/schemas/AccountType'
                 currency:
-                  type: string
-                  pattern: '^[A-Z]{3}$'
-                  description: ISO 4217 currency code (e.g., USD, EUR)
+                  $ref: '#/components/schemas/CurrencyCode'
       responses:
         '201':
           description: Account created
@@ -74,7 +71,7 @@ paths:
                 amount:
                   type: number
                 currency:
-                  type: string
+                  $ref: '#/components/schemas/CurrencyCode'
       responses:
         '200':
           description: Transfer successful
@@ -88,14 +85,18 @@ components:
         customerId:
           type: string
         accountType:
-          type: string
-          enum: [SAVINGS, CHECKING, BUSINESS, JOINT]
+          $ref: '#/components/schemas/AccountType'
         balance:
           type: number
         currency:
-          type: string
-          pattern: '^[A-Z]{3}$'
-          description: ISO 4217 currency code (e.g., USD, EUR)
+          $ref: '#/components/schemas/CurrencyCode'
         createdAt:
           type: string
           format: date-time
+    AccountType:
+      type: string
+      enum: [SAVINGS, CHECKING, BUSINESS, JOINT]
+    CurrencyCode:
+      type: string
+      pattern: '^[A-Z]{3}$'
+      description: ISO 4217 currency code (e.g., USD, EUR)
