@@ -8,14 +8,14 @@ This repository contains OpenAPI Examples for the Banking Domain.
 
 The following APIs are included:
 
-- Account Opening, Management and Money Transfer API
-- Transaction History API
-- Loan Application and Management API
-- Card Management API
-- Investment Portfolio Management API
-- Foreign Exchange (FX) Services API
-- Commodity Buy, Sell and Pricing API
-- Customer Profile Management API
+- [Account Opening, Management and Money Transfer API](./account-opening-api.yaml)
+- [Transaction History API](./transaction-history-api.yaml)
+- [Loan Application and Management API](./loan-application-api.yaml)
+- [Card Management API](./card-management-api.yaml)
+- [Investment Portfolio Management API](./investment-portfolio-api.yaml)
+- [Foreign Exchange (FX) Services API](./fx-services-api.yaml)
+- [Commodity Buy, Sell and Pricing API](./commodity-api.yaml)
+- [Customer Profile Management API](./customer-profile-api.yaml)
 
 ## Author
 
