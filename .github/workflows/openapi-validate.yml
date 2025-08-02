@@ -1,0 +1,33 @@
+name: Validate OpenAPI Specs
+
+on:
+  push:
+    paths:
+      - '**/*.yaml'
+  pull_request:
+    paths:
+      - '**/*.yaml'
+
+jobs:
+  validate-openapi:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Download Swagger Codegen CLI v3
+        run: |
+          wget https://repo1.maven.org/maven2/io/swagger/codegen/v3/swagger-codegen-cli/3.0.48/swagger-codegen-cli-3.0.48.jar -O swagger-codegen-cli.jar
+
+      - name: Validate OpenAPI YAML files
+        run: |
+          for file in *.yaml; do
+            echo "Validating $file..."
+            java -jar swagger-codegen-cli.jar validate -i "$file"
+          done
