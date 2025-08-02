@@ -20,8 +20,11 @@ paths:
                   type: string
                 accountType:
                   type: string
+                  enum: [SAVINGS, CHECKING, BUSINESS, JOINT]
                 currency:
                   type: string
+                  pattern: '^[A-Z]{3}$'
+                  description: ISO 4217 currency code (e.g., USD, EUR)
       responses:
         '201':
           description: Account created
@@ -30,6 +33,12 @@ paths:
       responses:
         '200':
           description: A list of accounts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
 
   /accounts/{accountId}:
     get:
@@ -43,6 +52,10 @@ paths:
       responses:
         '200':
           description: Account details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
 
   /accounts/transfer:
     post:
@@ -65,3 +78,24 @@ paths:
       responses:
         '200':
           description: Transfer successful
+components:
+  schemas:
+    Account:
+      type: object
+      properties:
+        accountId:
+          type: string
+        customerId:
+          type: string
+        accountType:
+          type: string
+          enum: [SAVINGS, CHECKING, BUSINESS, JOINT]
+        balance:
+          type: number
+        currency:
+          type: string
+          pattern: '^[A-Z]{3}$'
+          description: ISO 4217 currency code (e.g., USD, EUR)
+        createdAt:
+          type: string
+          format: date-time
