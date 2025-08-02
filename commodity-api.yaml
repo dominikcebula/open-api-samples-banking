@@ -12,6 +12,12 @@ paths:
       responses:
         '200':
           description: Commodity prices
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CommodityPrice'
         '400':
           description: Invalid request parameters
           content:
@@ -33,17 +39,14 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                customerId:
-                  type: string
-                commodity:
-                  type: string
-                quantity:
-                  type: number
+              $ref: '#/components/schemas/CommodityOrderRequest'
       responses:
         '201':
           description: Commodity purchased
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommodityOrderResponse'
         '400':
           description: Invalid request body or parameters
           content:
@@ -77,17 +80,14 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                customerId:
-                  type: string
-                commodity:
-                  type: string
-                quantity:
-                  type: number
+              $ref: '#/components/schemas/CommodityOrderRequest'
       responses:
         '200':
           description: Commodity sold
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommodityOrderResponse'
         '400':
           description: Invalid request body or parameters
           content:
@@ -114,6 +114,54 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    CommodityPrice:
+      type: object
+      properties:
+        commodity:
+          type: string
+        price:
+          type: number
+        currency:
+          type: string
+          pattern: '^[A-Z]{3}$'
+          description: ISO 4217 currency code (e.g., USD, EUR)
+        timestamp:
+          type: string
+          format: date-time
+    CommodityOrderRequest:
+      type: object
+      properties:
+        customerId:
+          type: string
+        commodity:
+          type: string
+        quantity:
+          type: number
+    CommodityOrderResponse:
+      type: object
+      properties:
+        orderId:
+          type: string
+        customerId:
+          type: string
+        commodity:
+          type: string
+        quantity:
+          type: number
+        price:
+          type: number
+        total:
+          type: number
+        currency:
+          type: string
+          pattern: '^[A-Z]{3}$'
+          description: ISO 4217 currency code (e.g., USD, EUR)
+        status:
+          type: string
+          enum: [SUCCESS, FAILED, PENDING]
+        timestamp:
+          type: string
+          format: date-time
     ErrorResponse:
       type: object
       properties:

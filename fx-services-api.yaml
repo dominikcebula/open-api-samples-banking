@@ -15,9 +15,17 @@ paths:
           required: true
           schema:
             type: string
+            pattern: '^[A-Z]{3}$'
+            description: ISO 4217 currency code (e.g., USD, EUR)
       responses:
         '200':
           description: FX rates returned
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FxRate'
         '400':
           description: Invalid request parameters
           content:
@@ -45,17 +53,14 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                fromCurrency:
-                  type: string
-                toCurrency:
-                  type: string
-                amount:
-                  type: number
+              $ref: '#/components/schemas/FxConvertRequest'
       responses:
         '200':
           description: Conversion result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FxConvertResponse'
         '400':
           description: Invalid request body or parameters
           content:
@@ -82,6 +87,51 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    FxRate:
+      type: object
+      properties:
+        baseCurrency:
+          type: string
+          pattern: '^[A-Z]{3}$'
+          description: ISO 4217 currency code (e.g., USD, EUR)
+        quoteCurrency:
+          type: string
+          pattern: '^[A-Z]{3}$'
+          description: ISO 4217 currency code (e.g., USD, EUR)
+        rate:
+          type: number
+        timestamp:
+          type: string
+          format: date-time
+    FxConvertRequest:
+      type: object
+      properties:
+        fromCurrency:
+          type: string
+          pattern: '^[A-Z]{3}$'
+        toCurrency:
+          type: string
+          pattern: '^[A-Z]{3}$'
+        amount:
+          type: number
+    FxConvertResponse:
+      type: object
+      properties:
+        fromCurrency:
+          type: string
+          pattern: '^[A-Z]{3}$'
+        toCurrency:
+          type: string
+          pattern: '^[A-Z]{3}$'
+        originalAmount:
+          type: number
+        convertedAmount:
+          type: number
+        rate:
+          type: number
+        timestamp:
+          type: string
+          format: date-time
     ErrorResponse:
       type: object
       properties:

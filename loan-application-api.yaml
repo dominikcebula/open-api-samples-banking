@@ -14,19 +14,14 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                customerId:
-                  type: string
-                amount:
-                  type: number
-                termMonths:
-                  type: integer
-                loanType:
-                  type: string
+              $ref: '#/components/schemas/LoanApplicationRequest'
       responses:
         '201':
           description: Loan application submitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Loan'
         '400':
           description: Invalid request body or parameters
           content:
@@ -63,6 +58,12 @@ paths:
       responses:
         '200':
           description: List of loans
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Loan'
         '400':
           description: Invalid customer ID
           content:
@@ -94,6 +95,10 @@ paths:
       responses:
         '200':
           description: Loan details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Loan'
         '400':
           description: Invalid loan ID
           content:
@@ -114,6 +119,49 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    LoanApplicationRequest:
+      type: object
+      properties:
+        customerId:
+          type: string
+        amount:
+          type: number
+        termMonths:
+          type: integer
+        loanType:
+          type: string
+          enum: [PERSONAL, MORTGAGE, AUTO, STUDENT, BUSINESS, OTHER]
+        currency:
+          type: string
+          pattern: '^[A-Z]{3}$'
+          description: ISO 4217 currency code (e.g., USD, EUR)
+    Loan:
+      type: object
+      properties:
+        loanId:
+          type: string
+        customerId:
+          type: string
+        amount:
+          type: number
+        termMonths:
+          type: integer
+        loanType:
+          type: string
+          enum: [PERSONAL, MORTGAGE, AUTO, STUDENT, BUSINESS, OTHER]
+        currency:
+          type: string
+          pattern: '^[A-Z]{3}$'
+          description: ISO 4217 currency code (e.g., USD, EUR)
+        status:
+          type: string
+          enum: [PENDING, APPROVED, REJECTED, ACTIVE, CLOSED, DEFAULTED]
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
     ErrorResponse:
       type: object
       properties:

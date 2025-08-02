@@ -14,17 +14,14 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                customerId:
-                  type: string
-                assetType:
-                  type: string
-                amount:
-                  type: number
+              $ref: '#/components/schemas/InvestmentRequest'
       responses:
         '201':
           description: Investment added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Investment'
         '400':
           description: Invalid request body or parameters
           content:
@@ -61,6 +58,12 @@ paths:
       responses:
         '200':
           description: Investment portfolio
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Investment'
         '400':
           description: Invalid customer ID
           content:
@@ -118,6 +121,42 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    InvestmentRequest:
+      type: object
+      properties:
+        customerId:
+          type: string
+        assetType:
+          type: string
+          enum: [STOCK, BOND, FUND, ETF, CRYPTO, REAL_ESTATE, OTHER]
+        amount:
+          type: number
+        currency:
+          type: string
+          pattern: '^[A-Z]{3}$'
+          description: ISO 4217 currency code (e.g., USD, EUR)
+    Investment:
+      type: object
+      properties:
+        investmentId:
+          type: string
+        customerId:
+          type: string
+        assetType:
+          type: string
+          enum: [STOCK, BOND, FUND, ETF, CRYPTO, REAL_ESTATE, OTHER]
+        amount:
+          type: number
+        currency:
+          type: string
+          pattern: '^[A-Z]{3}$'
+          description: ISO 4217 currency code (e.g., USD, EUR)
+        status:
+          type: string
+          enum: [ACTIVE, CLOSED, PENDING, LOCKED]
+        createdAt:
+          type: string
+          format: date-time
     ErrorResponse:
       type: object
       properties:

@@ -28,6 +28,12 @@ paths:
       responses:
         '200':
           description: List of transactions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transaction'
         '400':
           description: Invalid request parameters
           content:
@@ -54,6 +60,36 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    Transaction:
+      type: object
+      properties:
+        transactionId:
+          type: string
+        accountId:
+          type: string
+        type:
+          type: string
+          enum: [DEPOSIT, WITHDRAWAL, TRANSFER, PAYMENT, FEE, INTEREST, ADJUSTMENT]
+        amount:
+          type: number
+        currency:
+          type: string
+          pattern: '^[A-Z]{3}$'
+          description: ISO 4217 currency code (e.g., USD, EUR)
+        description:
+          type: string
+        status:
+          type: string
+          enum: [PENDING, COMPLETED, FAILED, REVERSED]
+        timestamp:
+          type: string
+          format: date-time
+        relatedAccountId:
+          type: string
+          description: Account ID involved in transfer/payment (if applicable)
+        reference:
+          type: string
+          description: External or internal reference for the transaction
     ErrorResponse:
       type: object
       properties:

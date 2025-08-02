@@ -14,17 +14,14 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                email:
-                  type: string
-                phone:
-                  type: string
+              $ref: '#/components/schemas/CustomerProfileRequest'
       responses:
         '201':
           description: Customer created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerProfile'
         '400':
           description: Invalid request body or parameters
           content:
@@ -56,6 +53,10 @@ paths:
       responses:
         '200':
           description: Customer profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerProfile'
         '400':
           description: Invalid customer ID
           content:
@@ -88,17 +89,14 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                email:
-                  type: string
-                phone:
-                  type: string
+              $ref: '#/components/schemas/CustomerProfileRequest'
       responses:
         '200':
           description: Customer updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerProfile'
         '400':
           description: Invalid request body or parameters
           content:
@@ -125,6 +123,32 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    CustomerProfileRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+    CustomerProfile:
+      type: object
+      properties:
+        customerId:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum: [ACTIVE, INACTIVE, SUSPENDED, CLOSED]
     ErrorResponse:
       type: object
       properties:
