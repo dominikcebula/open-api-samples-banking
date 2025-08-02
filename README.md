@@ -18,6 +18,7 @@ The following APIs are included:
 - [Account Opening, Management and Money Transfer API](./account-opening-api.yaml) ([GitHub Raw](https://raw.githubusercontent.com/dominikcebula/open-api-samples-banking/main/account-opening-api.yaml))
 - [Card Management API](./card-management-api.yaml) ([GitHub Raw](https://raw.githubusercontent.com/dominikcebula/open-api-samples-banking/main/card-management-api.yaml))
 - [Foreign Exchange (FX) Services API](./fx-services-api.yaml) ([GitHub Raw](https://raw.githubusercontent.com/dominikcebula/open-api-samples-banking/main/fx-services-api.yaml))
+- [Stock Trading API](./stocks-trading-api.yaml) ([GitHub Raw](https://raw.githubusercontent.com/dominikcebula/open-api-samples-banking/main/stocks-trading-api.yaml))
 - [Commodity Buy, Sell and Pricing API](./commodity-api.yaml) ([GitHub Raw](https://raw.githubusercontent.com/dominikcebula/open-api-samples-banking/main/commodity-api.yaml))
 - [Loan Application and Management API](./loan-application-api.yaml) ([GitHub Raw](https://raw.githubusercontent.com/dominikcebula/open-api-samples-banking/main/loan-application-api.yaml))
 - [Investment Portfolio Management API](./investment-portfolio-api.yaml) ([GitHub Raw](https://raw.githubusercontent.com/dominikcebula/open-api-samples-banking/main/investment-portfolio-api.yaml))
