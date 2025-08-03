@@ -41,7 +41,7 @@ paths:
             schema:
               $ref: '#/components/schemas/CommodityOrderRequest'
       responses:
-        '201':
+        '200':
           description: Commodity purchased
           content:
             application/json:
