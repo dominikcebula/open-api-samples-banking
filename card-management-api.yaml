@@ -6,9 +6,15 @@ info:
 servers:
   - url: /api/v1
 paths:
-  /cards:
+  /cards/{customerId}:
     post:
       summary: Request a new card
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: string
       requestBody:
         required: true
         content:
@@ -16,15 +22,18 @@ paths:
             schema:
               type: object
               properties:
-                customerId:
-                  type: string
                 cardType:
                   $ref: '#/components/schemas/CardType'
                 cardProvider:
                   $ref: '#/components/schemas/CardProvider'
       responses:
-        '201':
+        '200':
           description: Card requested
+          headers:
+            Location:
+              description: URL to the newly created card resource (/cards/{cardNumber})
+              schema:
+                type: string
           content:
             application/json:
               schema:
@@ -52,7 +61,7 @@ paths:
       summary: List all cards for a customer
       parameters:
         - name: customerId
-          in: query
+          in: path
           required: true
           schema:
             type: string
