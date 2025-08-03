@@ -7,16 +7,23 @@ servers:
   - url: /api/v1
 paths:
   /fx/rates:
-    get:
+    post:
       summary: Get FX rates
-      parameters:
-        - name: baseCurrency
-          in: query
-          required: true
-          schema:
-            type: string
-            pattern: '^[A-Z]{3}$'
-            description: ISO 4217 currency code (e.g., USD, EUR)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                baseCurrency:
+                  type: array
+                  items:
+                    type: string
+                    pattern: '^[A-Z]{3}$'
+                  description: ISO 4217 currency code(s) (e.g., USD, EUR)
+              required:
+                - baseCurrency
       responses:
         '200':
           description: FX rates returned
