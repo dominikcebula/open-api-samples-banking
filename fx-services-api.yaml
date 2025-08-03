@@ -85,6 +85,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+
 components:
   schemas:
     FxRate:
@@ -129,6 +130,13 @@ components:
           type: number
         rate:
           type: number
+        fee:
+          type: number
+          description: Conversion fee amount
+        feeCurrency:
+          type: string
+          pattern: '^[A-Z]{3}$'
+          description: ISO 4217 currency code (e.g., USD, EUR)
         timestamp:
           type: string
           format: date-time
