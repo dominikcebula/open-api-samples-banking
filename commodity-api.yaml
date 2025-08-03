@@ -117,9 +117,18 @@ components:
     CommodityPrice:
       type: object
       properties:
-        commodity:
+        commodityId:
           type: string
-        price:
+          description: Unique identifier for the commodity
+        name:
+          type: string
+        description:
+          type: string
+          description: Description of the commodity
+        unit:
+          type: string
+          description: Unit of the commodity (e.g., kg, barrel, ounce)
+        pricePerUnit:
           type: number
         currency:
           type: string
@@ -133,8 +142,17 @@ components:
       properties:
         customerId:
           type: string
-        commodity:
+        commodityId:
           type: string
+          description: Unique identifier for the commodity
+        name:
+          type: string
+        description:
+          type: string
+          description: Description of the commodity
+        unit:
+          type: string
+          description: Unit of the commodity (e.g., kg, barrel, ounce)
         quantity:
           type: number
     CommodityOrderResponse:
@@ -144,11 +162,20 @@ components:
           type: string
         customerId:
           type: string
-        commodity:
+        commodityId:
           type: string
+          description: Unique identifier for the commodity
+        name:
+          type: string
+        description:
+          type: string
+          description: Description of the commodity
+        unit:
+          type: string
+          description: Unit of the commodity (e.g., kg, barrel, ounce)
         quantity:
           type: number
-        price:
+        pricePerUnit:
           type: number
         total:
           type: number
