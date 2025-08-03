@@ -106,7 +106,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FxConvertResponse'
+                $ref: '#/components/schemas/FxTransactionResponse'
         '400':
           description: Invalid request body or parameters
           content:
@@ -148,7 +148,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FxConvertResponse'
+                $ref: '#/components/schemas/FxTransactionResponse'
         '404':
           description: FX conversion transaction not found
           content:
@@ -194,6 +194,38 @@ components:
     FxConvertResponse:
       type: object
       properties:
+        fromCurrency:
+          type: string
+          pattern: '^[A-Z]{3}$'
+        toCurrency:
+          type: string
+          pattern: '^[A-Z]{3}$'
+        originalAmount:
+          type: number
+        convertedAmount:
+          type: number
+        rate:
+          type: number
+        fee:
+          type: number
+          description: Conversion fee amount
+        feeCurrency:
+          type: string
+          pattern: '^[A-Z]{3}$'
+          description: ISO 4217 currency code (e.g., USD, EUR)
+        timestamp:
+          type: string
+          format: date-time
+    FxTransactionResponse:
+      type: object
+      properties:
+        transactionId:
+          type: string
+          description: Unique identifier for the FX conversion transaction
+        status:
+          type: string
+          enum: [ PENDING, COMPLETED, FAILED ]
+          description: Status of the FX conversion transaction
         fromCurrency:
           type: string
           pattern: '^[A-Z]{3}$'
