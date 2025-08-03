@@ -86,6 +86,82 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
+  /fx/transactions:
+    post:
+      summary: Create FX conversion transaction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FxConvertRequest'
+      responses:
+        '201':
+          description: FX conversion transaction created
+          headers:
+            Location:
+              description: URL of the newly created FX transaction
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FxConvertResponse'
+        '400':
+          description: Invalid request body or parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Currency not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Conversion conflict (e.g., unsupported currency pair)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /fx/transactions/{transactionId}:
+    get:
+      summary: Get FX conversion transaction by ID
+      parameters:
+        - in: path
+          name: transactionId
+          required: true
+          schema:
+            type: string
+          description: Unique identifier for the FX conversion transaction
+      responses:
+        '200':
+          description: FX conversion transaction details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FxConvertResponse'
+        '404':
+          description: FX conversion transaction not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
 components:
   schemas:
     FxRate:
