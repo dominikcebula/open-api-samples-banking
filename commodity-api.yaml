@@ -31,6 +31,85 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
+  /commodities/prices/{commodityId}:
+    get:
+      summary: Get current price for a single commodity
+      parameters:
+        - in: path
+          name: commodityId
+          required: true
+          schema:
+            type: string
+          description: Unique identifier for the commodity
+      responses:
+        '200':
+          description: Commodity price
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommodityPrice'
+        '400':
+          description: Invalid commodityId
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Commodity not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /commodities/prices/batch:
+    post:
+      summary: Get current prices for multiple commodities
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                commodityIds:
+                  type: array
+                  items:
+                    type: string
+                  description: List of commodity IDs to fetch prices for
+      responses:
+        '200':
+          description: Commodity prices
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CommodityPrice'
+        '400':
+          description: Invalid request body or parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: One or more commodities not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
   /commodities/buy:
     post:
       summary: Buy commodities
@@ -177,7 +256,7 @@ components:
           description: ISO 4217 currency code (e.g., USD, EUR)
         status:
           type: string
-          enum: [SUCCESS, FAILED, PENDING]
+          enum: [ SUCCESS, FAILED, PENDING ]
         timestamp:
           type: string
           format: date-time
