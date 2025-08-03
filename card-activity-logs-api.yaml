@@ -1,0 +1,176 @@
+openapi: 3.0.3
+info:
+  title: Card Activity Logs API
+  version: 1.0.0
+  description: API to retrieve activity logs for cards, including transactions, status changes, and other card-related events.
+servers:
+  - url: /api/v1
+paths:
+  /card-logs:
+    get:
+      summary: Get activity logs for a card
+      parameters:
+        - name: cardNumber
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: startDate
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: eventType
+          in: query
+          schema:
+            type: string
+            enum: [ TRANSACTION, STATUS_CHANGE, LIMIT_CHANGE, OTHER ]
+      responses:
+        '200':
+          description: List of card activity logs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CardActivityLog'
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Card not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Log retrieval conflict (e.g., date range too large)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    post:
+      summary: Add one or more card activity log entries
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: '#/components/schemas/CardActivityLog'
+                - type: array
+                  items:
+                    $ref: '#/components/schemas/CardActivityLog'
+      responses:
+        '200':
+          description: Log entry or entries created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  created:
+                    type: integer
+                    description: Number of log entries created
+                  logIds:
+                    type: array
+                    items:
+                      type: string
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /card-logs/{logId}:
+    get:
+      summary: Get details for a specific card activity log entry
+      parameters:
+        - name: logId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Card activity log details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardActivityLog'
+        '400':
+          description: Invalid log ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Log entry not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    CardActivityLog:
+      type: object
+      properties:
+        logId:
+          type: string
+        cardNumber:
+          type: string
+        eventType:
+          type: string
+          enum: [ TRANSACTION, STATUS_CHANGE, LIMIT_CHANGE, OTHER ]
+        eventDescription:
+          type: string
+        status:
+          type: string
+          enum: [ SUCCESS, FAILURE, PENDING ]
+        timestamp:
+          type: string
+          format: date-time
+        details:
+          type: object
+          description: Additional event-specific details
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error code identifier
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: string
+          description: Additional error details (optional)

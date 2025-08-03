@@ -23,6 +23,7 @@ The following APIs are included:
 - [Loan Application and Management API](./loan-application-api.yaml) ([GitHub Raw](https://raw.githubusercontent.com/dominikcebula/open-api-samples-banking/main/loan-application-api.yaml))
 - [Investment Portfolio Management API](./investment-portfolio-api.yaml) ([GitHub Raw](https://raw.githubusercontent.com/dominikcebula/open-api-samples-banking/main/investment-portfolio-api.yaml))
 - [Transaction History API](./transaction-history-api.yaml) ([GitHub Raw](https://raw.githubusercontent.com/dominikcebula/open-api-samples-banking/main/transaction-history-api.yaml))
+- [Card Activity Logs API](./card-activity-logs-api.yaml) ([GitHub Raw](https://raw.githubusercontent.com/dominikcebula/open-api-samples-banking/main/card-activity-logs-api.yaml))
 - [Customer Profile Management API](./customer-profile-api.yaml) ([GitHub Raw](https://raw.githubusercontent.com/dominikcebula/open-api-samples-banking/main/customer-profile-api.yaml))
 
 ## View APIs in Swagger Editor
