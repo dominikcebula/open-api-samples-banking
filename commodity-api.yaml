@@ -145,14 +145,6 @@ components:
         commodityId:
           type: string
           description: Unique identifier for the commodity
-        name:
-          type: string
-        description:
-          type: string
-          description: Description of the commodity
-        unit:
-          type: string
-          description: Unit of the commodity (e.g., kg, barrel, ounce)
         quantity:
           type: number
     CommodityOrderResponse:
@@ -177,7 +169,7 @@ components:
           type: number
         pricePerUnit:
           type: number
-        total:
+        totalPrice:
           type: number
         currency:
           type: string
